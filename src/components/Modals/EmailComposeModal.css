@@ -11,7 +11,7 @@
   }
   .compose-email-popup{
 
-    
+    border: 2px solid red;
     border-radius: 15px;
   }
   .modal-content {
@@ -20,9 +20,11 @@
   }
   
   .modal-header {
+    height: 50px;
     border: none;
+    width: 760px;
+    border-radius: 15px;
     background: #ffffff;
-    border-bottom: 1px solid #e3e3e3;
     padding: 15px 20px;
     font-size: 20px;
     font-weight: bold;
@@ -31,6 +33,13 @@
   .modal-popup-modalheader{
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    text-align: center;
+  }
+
+  .modal-popup-modalheader h4{
+    font-family: 'ubuntu';
+    font-size: larger;
   }
   .custom-close-button{
     cursor: pointer;
@@ -68,3 +77,7 @@
   
   
   
+  .recipient-input-box{
+    width: 100%;
+    height: 30px;
+  }

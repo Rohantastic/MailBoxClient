@@ -30,6 +30,7 @@ const LoginPage = () => {
 
             if (response.ok) {
                 //const data = await response.json();
+                localStorage.setItem("mailboxloggedinUser", email);
                 alert("User has been successfully logged in !!");
                 navigateToHomePage();
             } else {

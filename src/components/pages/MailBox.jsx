@@ -1,13 +1,58 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import "./MailBox.css";
 import EmailComposeModal from '../Modals/EmailComposeModal';
+import { useNavigate } from 'react-router-dom';
 
 function MailBox() {
     const [modal, setModal] = useState(false);
+    const [mails,setMails] = useState([]);
+    const userName = localStorage.getItem("mailboxloggedinUser");
+    console.log("email of user:", userName);
+
+    const navigate = useNavigate();
 
     const toggleModal = () => {
         setModal(!modal);
     };
+
+    const logout = ()=>{
+        localStorage.clear();
+        navigate("/login");
+    }
+
+    useEffect(()=>{
+        fetchMails();
+    },[]);
+
+
+    const fetchMails = async () => {
+        try {
+            const response = await fetch("https://mailboxclient-e822e-default-rtdb.firebaseio.com/mailbox.json");
+            if (response.ok) {
+                const data = await response.json();
+                if (data) {
+                    const mailsArray = Object.keys(data).map((key) => ({
+                        id: key,
+                        ...data[key],
+                    }));
+    
+                    
+                    const loggedInUserEmail = localStorage.getItem("mailboxloggedinUser");
+                    const filteredMails = mailsArray.filter((mail) => mail.receiver === loggedInUserEmail);
+    
+                    setMails(filteredMails);
+                } else {
+                    console.log("cannot get");
+                    setMails([]);
+                }
+            } else {
+                console.error("Error fetching mails from Firebase");
+            }
+        } catch (err) {
+            console.error("An error occurred while fetching emails:", err);
+        }
+    }
+    
 
     return (
         <>
@@ -17,14 +62,15 @@ function MailBox() {
             <div className="gmail-homepage">
                 <header>
                     <div className="logo">
-                        <img src="gmail-logo.png" alt="Gmail Logo" />
+                        <img src="" alt="Email App" />
                     </div>
                     <div className="search-bar">
                         <input type="text" placeholder="Search mail" />
                     </div>
                     <div className="user-info">
-                        <button> Log out</button>
-                        <span>John Doe</span>
+                        <button onClick={logout}> Log out</button>
+                        <button onClick={fetchMails}>↻</button>
+                        <span>{userName}</span>
                     </div>
                 </header>
                 <nav>
@@ -35,11 +81,18 @@ function MailBox() {
                         <li>More</li>
                     </ul>
                 </nav>
-                <main>
-                    {/* Email list and content will go here */}
+                <main className='mailbox-homepage-main'>
+                    <ul className='mailbox-homepage-main-ul'>
+                        {mails.slice().reverse().map((mail) => (
+                            <li key={mail.id}>
+                                <div className="email-sender">{mail.sender}</div>
+                                <div className="email-subject">{mail.emailContent}</div>
+                                <div className="email-date">{mail.time}</div>
+                            </li>
+                        ))}
+                    </ul>
                 </main>
             </div>
-
         </>
     );
 }

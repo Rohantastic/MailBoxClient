@@ -52,5 +52,50 @@
     padding: 20px;
   }
   
-  /* Style the email list and content area as needed */
+  
+  .mailbox-homepage-main{
+    height: 75vh;
+  }
+
+  /* Mailbox list item styles */
+.mailbox-homepage-main-ul {
+    list-style: none; 
+    padding: 0;
+    margin: 0;
+  }
+  
+  .mailbox-homepage-main-ul li {
+    border: 1px solid #e0e0e0; /* Add a bottom border to separate email items */
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .mailbox-homepage-main-ul li:last-child {
+    /* border-bottom: none;  */
+  }
+  
+  /* Style for email subject or content */
+  .mailbox-homepage-main-ul li span.email-content {
+    font-weight: bold;
+  }
+  
+  /* Style for email sender or date */
+  .mailbox-homepage-main-ul li span.email-info {
+    color: #888;
+  }
+  
+
+  .email-sender{
+    font-style: italic;
+    font-weight: lighter;
+    font-size: small;
+  }
+
+  .email-subject{
+    text-align: center;
+    flex: 3;
+  }
+
   
