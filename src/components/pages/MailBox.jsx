@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import "./MailBox.css";
 import EmailComposeModal from '../Modals/EmailComposeModal';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function MailBox() {
     const [modal, setModal] = useState(false);
-    const [mails,setMails] = useState([]);
+    const [mails, setMails] = useState([]);
     const userName = localStorage.getItem("mailboxloggedinUser");
     console.log("email of user:", userName);
 
@@ -15,14 +15,14 @@ function MailBox() {
         setModal(!modal);
     };
 
-    const logout = ()=>{
+    const logout = () => {
         localStorage.clear();
         navigate("/login");
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         fetchMails();
-    },[]);
+    }, []);
 
 
     const fetchMails = async () => {
@@ -35,11 +35,11 @@ function MailBox() {
                         id: key,
                         ...data[key],
                     }));
-    
-                    
+
+
                     const loggedInUserEmail = localStorage.getItem("mailboxloggedinUser");
                     const filteredMails = mailsArray.filter((mail) => mail.receiver === loggedInUserEmail);
-    
+
                     setMails(filteredMails);
                 } else {
                     console.log("cannot get");
@@ -52,7 +52,7 @@ function MailBox() {
             console.error("An error occurred while fetching emails:", err);
         }
     }
-    
+
 
     return (
         <>
@@ -84,14 +84,21 @@ function MailBox() {
                 <main className='mailbox-homepage-main'>
                     <ul className='mailbox-homepage-main-ul'>
                         {mails.slice().reverse().map((mail) => (
-                            <li key={mail.id}>
-                                <div className="email-sender">{mail.sender}</div>
-                                <div className="email-subject">{mail.emailContent}</div>
-                                <div className="email-date">{mail.time}</div>
+                            <li className='mailbox-homepage-main-ul' key={mail.id}>
+                                <Link to={`/mail/${mail.id}`} className='mail-box-homepage-link'><div className="email-sender">{mail.sender}</div></Link>
+                                <Link to={`/mail/${mail.id}`} className='mail-box-homepage-link'>
+                                    <div className="email-subject">
+                                        {mail.unread === true ? "[unread] " : null}
+                                        {mail.emailContent}
+                                    </div>
+                                </Link>
+                                <Link to={`/mail/${mail.id}`} className='mail-box-homepage-link'><div className="email-date">{mail.time}</div></Link>
                             </li>
                         ))}
                     </ul>
                 </main>
+
+
             </div>
         </>
     );

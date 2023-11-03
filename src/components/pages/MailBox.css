@@ -98,4 +98,6 @@
     flex: 3;
   }
 
-  
+.mail-box-homepage-link{
+    text-decoration: none;
+}

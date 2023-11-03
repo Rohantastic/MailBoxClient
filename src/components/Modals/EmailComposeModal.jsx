@@ -45,7 +45,8 @@ function EmailComposeModal({ isOpen, toggle }) {
           emailContent: emailContent,
           sender: localStorage.getItem("mailboxloggedinUser") || "rohantastic22@gmail.com",
           receiver: recipientEmail,
-          time: currentTimeAndDate()
+          time: currentTimeAndDate(),
+          unread: true
         }),
         headers: {
           'Content-Type': 'application/json',
