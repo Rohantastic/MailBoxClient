@@ -59,6 +59,24 @@ const MailPage = () => {
         }
     }
     
+    const deleteMail = async () => {
+        try {
+            const response = await fetch(`https://mailboxclient-e822e-default-rtdb.firebaseio.com/mailbox/${mail_id}.json`, {
+                method: "DELETE",
+            });
+    
+            if (response.ok) {
+                console.log("Mail has been deleted");
+            } else {
+                console.error("Error deleting the mail.");
+            }
+            
+            navigate("/home");
+        } catch (err) {
+            console.error("An error occurred:", err);
+        }
+    }
+    
     
 
     useEffect(() => {
@@ -100,7 +118,10 @@ const MailPage = () => {
             <main>
                 {mail ? (
                     <div>
-                        <h2>Mail Subject: {mail.subject} <button onClick={goBackToMailHomePage}>Go Back</button></h2>
+                        <h2>Mail Subject: {mail.subject} 
+                        <button onClick={goBackToMailHomePage}>Go Back</button>
+                        <button onClick={deleteMail}>Delete</button>
+                        </h2>
                         <p>From: {mail.sender}</p>
                         <p>To: {mail.receiver}</p>
                         <p>Time: {mail.time}</p>
