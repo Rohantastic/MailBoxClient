@@ -60,23 +60,23 @@ const MailPage = () => {
     }
     
     const deleteMail = async () => {
-        try {
-            const response = await fetch(`https://mailboxclient-e822e-default-rtdb.firebaseio.com/mailbox/${mail_id}.json`, {
-                method: "DELETE",
-            });
-    
-            if (response.ok) {
-                console.log("Mail has been deleted");
-            } else {
-                console.error("Error deleting the mail.");
-            }
-            
-            navigate("/home");
-        } catch (err) {
-            console.error("An error occurred:", err);
+    try {
+        const response = await fetch(`https://mailboxclient-e822e-default-rtdb.firebaseio.com/mailbox/${mail_id}.json`, {
+            method: "DELETE",
+        });
+
+        if (response.ok) {
+            console.log("Mail has been deleted");
+        } else {
+            console.error("Error deleting the mail.");
         }
+        
+        navigate("/home");
+    } catch (err) {
+        console.error("An error occurred:", err);
     }
-    
+}
+
     
 
     useEffect(() => {

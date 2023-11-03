@@ -14,7 +14,7 @@ function App() {
           <Route path='/login' element={<LoginPage/>}/>
           <Route path='/home' element={<MailBox/>}/>
           <Route path='/mail/:id' element={<MailPage/>} />
-        </Routes>
+          </Routes>
       </Router>
     </>
   );

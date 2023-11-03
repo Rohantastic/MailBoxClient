@@ -6,6 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 function MailBox() {
     const [modal, setModal] = useState(false);
     const [mails, setMails] = useState([]);
+    const [inboxSentMessageToggle, setInboxSentMessageToggle] = useState(false); // Added state for showing sent mails
     const userName = localStorage.getItem("mailboxloggedinUser");
     console.log("email of user:", userName);
 
@@ -22,8 +23,7 @@ function MailBox() {
 
     useEffect(() => {
         fetchMails();
-    }, []);
-
+    }, [inboxSentMessageToggle]); // Add inboxSentMessageToggle as a dependency
 
     const fetchMails = async () => {
         try {
@@ -36,9 +36,13 @@ function MailBox() {
                         ...data[key],
                     }));
 
-
                     const loggedInUserEmail = localStorage.getItem("mailboxloggedinUser");
-                    const filteredMails = mailsArray.filter((mail) => mail.receiver === loggedInUserEmail);
+                    var filteredMails = [];
+                    if (inboxSentMessageToggle) {
+                        filteredMails = mailsArray.filter((mail) => mail.sender === loggedInUserEmail); // Filter sent mails
+                    } else {
+                        filteredMails = mailsArray.filter((mail) => mail.receiver === loggedInUserEmail); // Filter received mails
+                    }
 
                     setMails(filteredMails);
                 } else {
@@ -53,6 +57,9 @@ function MailBox() {
         }
     }
 
+    const sentMailHandler = () => {
+        setInboxSentMessageToggle(!inboxSentMessageToggle);
+    }
 
     return (
         <>
@@ -75,8 +82,8 @@ function MailBox() {
                 </header>
                 <nav>
                     <ul>
-                        <li>Inbox</li>
-                        <li>Sent Mail</li>
+                        <li onClick={sentMailHandler}>Inbox</li>
+                        <li onClick={sentMailHandler}>Sent Mail</li>
                         <li onClick={toggleModal}>Send Mail</li>
                         <li>More</li>
                     </ul>
@@ -97,8 +104,6 @@ function MailBox() {
                         ))}
                     </ul>
                 </main>
-
-
             </div>
         </>
     );
