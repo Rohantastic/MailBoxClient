@@ -94,14 +94,14 @@ const MailPage = () => {
         <>
             <div className="gmail-homepage">
                 <header>
-                    <div className="logo">
-                        <img src="" alt="Email App" />
-                    </div>
+                <div className="logo">
+                        <img className="logo-img" src="/email.png" alt="Email App" />
+                </div>
                     <div className="search-bar">
                         <input type="text" placeholder="Search mail" />
                     </div>
                     <div className="user-info">
-                        <button onClick={logout}>Log out</button>
+                        <button className="mailbox-logout"  onClick={logout}>Log out</button>
                         <span>{userName}</span>
                     </div>
                 </header>
@@ -119,13 +119,13 @@ const MailPage = () => {
                 {mail ? (
                     <div>
                         <h2>Mail Subject: {mail.subject} 
-                        <button onClick={goBackToMailHomePage}>Go Back</button>
-                        <button onClick={deleteMail}>Delete</button>
+                        <button className="mailbox-logout" onClick={goBackToMailHomePage}>Go Back</button>
+                        <button className="mailbox-logout" onClick={deleteMail}>Delete</button>
                         </h2>
                         <p>From: {mail.sender}</p>
                         <p>To: {mail.receiver}</p>
                         <p>Time: {mail.time}</p>
-                        <p>Content: {mail.emailContent}</p>
+                        <p className='mailpage-content'>Content: {mail.emailContent}</p>
                     </div>
                 ) : (
                     <p>Cannot load mail</p>

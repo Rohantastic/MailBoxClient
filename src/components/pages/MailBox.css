@@ -13,11 +13,7 @@
     margin-bottom: 20px;
   }
   
-  .logo img {
-    width: 100px;
-    height: auto;
-  }
-  
+
   .search-bar input {
     width: 300px;
     padding: 10px;
@@ -100,4 +96,41 @@
 
 .mail-box-homepage-link{
     text-decoration: none;
+}
+
+
+.unread-mail {
+  background-color: #f2f2f2; 
+  font-weight: bold;
+}
+
+
+.logo-img {
+  width: 52px; 
+  height: auto; 
+}
+
+
+.email-reload{
+  height: 20px;
+  width: 30px;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 2px 2px grey;
+}
+
+.email-reload:hover{
+  background-color: rgb(140, 131, 131);
+}
+
+.mailbox-logout{
+  height: 30px;
+  margin-right: 10px;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 2px 2px grey;
+}
+
+.user-info-userName{
+  font-family: Georgia, 'Times New Roman', Times, serif;
 }

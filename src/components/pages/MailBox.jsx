@@ -61,6 +61,12 @@ function MailBox() {
         setInboxSentMessageToggle(!inboxSentMessageToggle);
     }
 
+
+    // setInterval(()=>{
+    //     fetchMails();
+    // },2000);
+
+
     return (
         <>
             <div className="div">
@@ -69,15 +75,15 @@ function MailBox() {
             <div className="gmail-homepage">
                 <header>
                     <div className="logo">
-                        <img src="" alt="Email App" />
+                        <img className="logo-img" src="/email.png" alt="Email App" />
                     </div>
+
                     <div className="search-bar">
                         <input type="text" placeholder="Search mail" />
                     </div>
                     <div className="user-info">
-                        <button onClick={logout}> Log out</button>
-                        <button onClick={fetchMails}>↻</button>
-                        <span>{userName}</span>
+                        <button className="mailbox-logout" onClick={logout}> Log out</button>
+                        <span className='user-info-userName'>{userName}</span>
                     </div>
                 </header>
                 <nav>
@@ -85,25 +91,30 @@ function MailBox() {
                         <li onClick={sentMailHandler}>Inbox</li>
                         <li onClick={sentMailHandler}>Sent Mail</li>
                         <li onClick={toggleModal}>Send Mail</li>
-                        <li>More</li>
+                        <button className="email-reload" onClick={fetchMails}>↻</button>
                     </ul>
                 </nav>
                 <main className='mailbox-homepage-main'>
                     <ul className='mailbox-homepage-main-ul'>
                         {mails.slice().reverse().map((mail) => (
-                            <li className='mailbox-homepage-main-ul' key={mail.id}>
-                                <Link to={`/mail/${mail.id}`} className='mail-box-homepage-link'><div className="email-sender">{mail.sender}</div></Link>
+                            <li className={`mailbox-homepage-main-ul ${mail.unread ? 'unread-mail' : ''}`} key={mail.id}>
+                                <Link to={`/mail/${mail.id}`} className='mail-box-homepage-link'>
+                                    <div className="email-sender">{mail.sender}</div>
+                                </Link>
                                 <Link to={`/mail/${mail.id}`} className='mail-box-homepage-link'>
                                     <div className="email-subject">
                                         {mail.unread === true ? "[unread] " : null}
                                         {mail.emailContent}
                                     </div>
                                 </Link>
-                                <Link to={`/mail/${mail.id}`} className='mail-box-homepage-link'><div className="email-date">{mail.time}</div></Link>
+                                <Link to={`/mail/${mail.id}`} className='mail-box-homepage-link'>
+                                    <div className="email-date">{mail.time}</div>
+                                </Link>
                             </li>
                         ))}
                     </ul>
                 </main>
+
             </div>
         </>
     );

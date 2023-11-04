@@ -1,0 +1,17 @@
+.logo-img {
+    width: 52px; 
+    height: auto; 
+}
+  
+
+.mailbox-logout{
+    height: 30px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 2px 2px grey;
+}
+
+.mailpage-content{
+    font-weight: bold;
+}
